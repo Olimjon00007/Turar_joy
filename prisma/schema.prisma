@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Apartment {
+  id                String   @id @default(cuid())
+  title             String
+  monthlyRent       Float
+  district          String
+  address           String
+  rooms             Int
+  floor             Int
+  area              Float
+  furnished         Boolean  @default(false)
+  description       String
+  
+  // Requirements section
+  tenantRequirements String // JSON or string list
+  petsAllowed        Boolean  @default(false)
+  smokingAllowed     Boolean  @default(false)
+  minRentalTerm      String
+  extraRequirements  String?
+  
+  // Location
+  latitude          Float?
+  longitude         Float?
+  
+  // Status
+  isPublished       Boolean  @default(false)
+  isVerified        Boolean  @default(false)
+  
+  images            Image[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model Image {
+  id          String    @id @default(cuid())
+  apartmentId String
+  url         String
+  isCover     Boolean   @default(false)
+  sortOrder   Int       @default(0)
+  apartment   Apartment @relation(fields: [apartmentId], references: [id], onDelete: Cascade)
+}

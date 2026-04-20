@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #121212; /* Deep Black/Graphite for premium feel */
+  --color-background: #FCFCFD; /* Ultra-light cool gray for contrast */
+  --color-foreground: #0A0A0A; /* Solid contrast text */
+  --color-muted: #F3F4F6; /* Soft sophisticated gray */
+  --color-accent: #3B82F6; /* Optional blue for small highlights if needed */
+  --radius-lg: 24px; /* More rounded Apple style */
+  --radius-md: 16px;
+  --radius-sm: 10px;
+  --shadow-premium: 0 10px 40px -10px rgba(0, 0, 0, 0.08), 0 4px 12px -5px rgba(0, 0, 0, 0.04);
+}
+
+:root {
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+}
