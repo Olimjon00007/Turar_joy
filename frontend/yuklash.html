@@ -307,9 +307,7 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Mahalla / Punkt</label>
-                            <select id="neighborhoodSelect" class="form-control" disabled required>
-                                <option value="" disabled selected>Avval tumanni tanlang</option>
-                            </select>
+                            <input type="text" id="neighborhoodInput" class="form-control" placeholder="Masalan: 12-kvartal, Bodomzor">
                         </div>
                         <div class="form-group">
                             <label>Ko'cha / Uy raqami</label>
@@ -346,70 +344,25 @@
     <script>
         // --- 1. LOCATION DATA (MOCK) ---
         const locations = {
-            "Toshkent shahri": {
-                "Yunusobod tumani": ["1-kvartal", "2-kvartal", "Bodomzor", "Minor"],
-                "Shayxontohur tumani": ["Ibn Sino", "Zarqaynar", "Chorsu"],
-                "Mirzo Ulug'bek tumani": ["Qorasuv", "TTZ", "Darxon"],
-                "Chilonzor tumani": ["Oqtepa", "1-kvartal", "Qatortol"]
-            },
-            "Toshkent viloyati": {
-                "Zangiota tumani": ["Eshonguzar", "Nazarbek"],
-                "Qibray tumani": ["Salomatlik", "Botanika"],
-                "Chirchiq shahri": ["Markaz", "Troisk"]
-            },
-            "Sirdaryo viloyati": {
-                "Guliston shahri": ["Markaz", "Do'stlik"],
-                "Sirdaryo tumani": ["Baxt", "Malik"]
-            },
-            "Jizzax viloyati": {
-                "Jizzax shahri": ["Zilol", "Sayxon"],
-                "G'allaorol tumani": ["Markaz", "Lalmikor"]
-            },
-            "Samarqand viloyati": {
-                "Samarqand shahri": ["Sug'diyona", "Bog'ishamol", "Mikrorayon"],
-                "Urgut tumani": ["Markaz", "Vagashti"]
-            },
-            "Farg'ona viloyati": {
-                "Farg'ona shahri": ["Markaz", "Kirgili"],
-                "Marg'ilon shahri": ["Yormazor", "Toshloq"]
-            },
-            "Namangan viloyati": {
-                "Namangan shahri": ["Davlatobod", "Chortoq"],
-                "Kosonsoy tumani": ["Markaz", "Chindavul"]
-            },
-            "Andijon viloyati": {
-                "Andijon shahri": ["Yangi bozor", "Eski shahar"],
-                "Asaka tumani": ["Markaz", "Kuyganyoy"]
-            },
-            "Qashqadaryo viloyati": {
-                "Qarshi shahri": ["Nasaf", "Paxtazor"],
-                "Shahrisabz shahri": ["Oqsaroy", "Kesh"]
-            },
-            "Surxondaryo viloyati": {
-                "Termiz shahri": ["Markaz", "Pattakesar"],
-                "Denov tumani": ["Xazorboq", "Sina"]
-            },
-            "Buxoro viloyati": {
-                "Buxoro shahri": ["Eski shahar", "Kogon"],
-                "G'ijduvon tumani": ["Markaz", "Soktari"]
-            },
-            "Navoiy viloyati": {
-                "Navoiy shahri": ["Markaz", "Zarafshon"],
-                "Xatirchi tumani": ["Langar", "Yangirabod"]
-            },
-            "Xorazm viloyati": {
-                "Urganch shahri": ["Markaz", "Darital"],
-                "Xiva shahri": ["Ichan qal'a", "Dishan qal'a"]
-            },
-            "Qoraqalpog'iston Respublikasi": {
-                "Nukus shahri": ["Markaz", "Xo'jayli"],
-                "Mo'ynoq tumani": ["Orol", "Qozoqdaryo"]
-            }
+            "Toshkent shahri": ["Bektemir tumani", "Chilonzor tumani", "Mirobod tumani", "Mirzo Ulug'bek tumani", "Sergeli tumani", "Shayxontohur tumani", "Olmazor tumani", "Uchtepa tumani", "Yakkasaroy tumani", "Yashnobod tumani", "Yunusobod tumani", "Yangihayot tumani"],
+            "Toshkent viloyati": ["Bekobod tumani", "Bo'ka tumani", "Bo'stonliq tumani", "Chinoz tumani", "Qibray tumani", "Ohangaron tumani", "Oqqo'rg'on tumani", "Parkent tumani", "Piskent tumani", "Quyi Chirchiq tumani", "O'rta Chirchiq tumani", "Yangiyo'l tumani", "Yuqori Chirchiq tumani", "Zangiota tumani", "Toshkent tumani", "Nurafshon shahri", "Olmaliq shahri", "Angren shahri", "Chirchiq shahri"],
+            "Sirdaryo viloyati": ["Oqoltin tumani", "Boyovut tumani", "Guliston tumani", "Xovos tumani", "Mirzaobod tumani", "Sayxunobod tumani", "Sardoba tumani", "Sirdaryo tumani", "Yangiyer shahri", "Shirin shahri"],
+            "Jizzax viloyati": ["Arnasoy tumani", "Baxmal tumani", "Do'stlik tumani", "Forish tumani", "G'allaorol tumani", "Sharof Rashidov tumani", "Mirzacho'l tumani", "Paxtakor tumani", "Yangiobod tumani", "Zomin tumani", "Zafarobod tumani", "Zarbdor tumani", "Jizzax shahri"],
+            "Samarqand viloyati": ["Bulung'ur tumani", "Ishtixon tumani", "Jomboy tumani", "Kattaqo'rg'on tumani", "Qo'shrabot tumani", "Narpay tumani", "Nurobod tumani", "Oqdaryo tumani", "Paxtachi tumani", "Payariq tumani", "Pastdarg'om tumani", "Samarqand tumani", "Toyloq tumani", "Urgut tumani", "Samarqand shahri"],
+            "Farg'ona viloyati": ["Oltiariq tumani", "Bag'dod tumani", "Beshariq tumani", "Buvayda tumani", "Dang'ara tumani", "Farg'ona tumani", "Furqat tumani", "Qo'shtepa tumani", "Quva tumani", "Rishton tumani", "So'x tumani", "Toshloq tumani", "Uchko'prik tumani", "O'zbekiston tumani", "Yozyovon tumani", "Farg'ona shahri", "Marg'ilon shahri", "Qo'qon shahri"],
+            "Namangan viloyati": ["Chortoq tumani", "Chust tumani", "Kosonsoy tumani", "Mingbuloq tumani", "Namangan tumani", "Norin tumani", "Pop tumani", "To'raqo'rg'on tumani", "Uchqo'rg'on tumani", "Uychi tumani", "Yangiqo'rg'on tumani", "Namangan shahri"],
+            "Andijon viloyati": ["Andijon tumani", "Asaka tumani", "Baliqchi tumani", "Bo'z tumani", "Buloqboshi tumani", "Izboskan tumani", "Jalaquduq tumani", "Marhamat tumani", "Oltinko'l tumani", "Paxtaobod tumani", "Qo'rg'ontepa tumani", "Shahrixon tumani", "Ulug'nor tumani", "Xo'jaobod tumani", "Andijon shahri"],
+            "Qashqadaryo viloyati": ["Chiroqchi tumani", "Dehqonobod tumani", "G'uzor tumani", "Qamashi tumani", "Qarshi tumani", "Koson tumani", "Kasbi tumani", "Kitob tumani", "Mirishkor tumani", "Muborak tumani", "Nishon tumani", "Shahrisabz tumani", "Yakkabog' tumani", "Ko'kdala tumani", "Qarshi shahri"],
+            "Surxondaryo viloyati": ["Angor tumani", "Boysun tumani", "Denov tumani", "Jarqo'rg'on tumani", "Qiziriq tumani", "Qumqo'rg'on tumani", "Muzrabot tumani", "Oltinsoy tumani", "Sariosiyo tumani", "Sherobod tumani", "Sho'rchi tumani", "Termiz tumani", "Uzun tumani", "Bandixon tumani", "Termiz shahri"],
+            "Buxoro viloyati": ["Buxoro tumani", "G'ijduvon tumani", "Jondor tumani", "Kogon tumani", "Olot tumani", "Peshku tumani", "Qorako'l tumani", "Qorovulbozor tumani", "Romitan tumani", "Shofirkon tumani", "Vobkent tumani", "Buxoro shahri"],
+            "Navoiy viloyati": ["Karmana tumani", "Konimex tumani", "Qiziltepa tumani", "Xatirchi tumani", "Navbahor tumani", "Nurota tumani", "Tomdi tumani", "Uchquduq tumani", "Navoiy shahri", "Zarafshon shahri"],
+            "Xorazm viloyati": ["Bog'ot tumani", "Gurlan tumani", "Xonqa tumani", "Hazorasp tumani", "Xiva tumani", "Qo'shko'pir tumani", "Shovot tumani", "Urganch tumani", "Yangiariq tumani", "Yangibozor tumani", "Tuproqqal'a tumani", "Urganch shahri"],
+            "Qoraqalpog'iston Respublikasi": ["Amudaryo tumani", "Beruniy tumani", "Chimboy tumani", "Ellikqal'a tumani", "Kegeyli tumani", "Mo'ynoq tumani", "Nukus tumani", "Qonliko'l tumani", "Qo'ng'irot tumani", "Qorao'zak tumani", "Shumanay tumani", "Taxtako'pir tumani", "To'rtko'l tumani", "Xo'jayli tumani", "Bo'zatov tumani", "Nukus shahri"]
         };
 
         const regionSelect = document.getElementById('regionSelect');
         const districtSelect = document.getElementById('districtSelect');
-        const neighborhoodSelect = document.getElementById('neighborhoodSelect');
+        const neighborhoodInput = document.getElementById('neighborhoodInput');
 
         // Populate Regions
         for (let region in locations) {
@@ -422,42 +375,19 @@
         // On Region Change
         regionSelect.addEventListener('change', function() {
             districtSelect.innerHTML = '<option value="" disabled selected>Tumanni tanlang</option>';
-            neighborhoodSelect.innerHTML = '<option value="" disabled selected>Avval tumanni tanlang</option>';
-            neighborhoodSelect.disabled = true;
             
             const selectedRegion = this.value;
             if(selectedRegion) {
                 const districts = locations[selectedRegion];
-                for(let dist in districts) {
+                districts.forEach(dist => {
                     let opt = document.createElement('option');
                     opt.value = dist;
                     opt.textContent = dist;
                     districtSelect.appendChild(opt);
-                }
+                });
                 districtSelect.disabled = false;
             } else {
                 districtSelect.disabled = true;
-            }
-        });
-
-        // On District Change
-        districtSelect.addEventListener('change', function() {
-            neighborhoodSelect.innerHTML = '<option value="" disabled selected>Mahallani tanlang</option>';
-            
-            const selectedRegion = regionSelect.value;
-            const selectedDistrict = this.value;
-            
-            if(selectedDistrict) {
-                const neighborhoods = locations[selectedRegion][selectedDistrict];
-                neighborhoods.forEach(hood => {
-                    let opt = document.createElement('option');
-                    opt.value = hood;
-                    opt.textContent = hood;
-                    neighborhoodSelect.appendChild(opt);
-                });
-                neighborhoodSelect.disabled = false;
-            } else {
-                neighborhoodSelect.disabled = true;
             }
         });
 
@@ -472,17 +402,46 @@
             const files = Array.from(e.target.files);
             
             files.forEach(file => {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const dataUrl = event.target.result;
+                compressImage(file, function(dataUrl) {
                     uploadedImages.push(dataUrl);
                     renderImages();
-                };
-                reader.readAsDataURL(file);
+                });
             });
-            // Clear input so same file can be selected again if removed
             this.value = '';
         });
+
+        function compressImage(file, callback) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 800;
+                    const MAX_HEIGHT = 800;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        }
+                    } else {
+                        if (height > MAX_HEIGHT) {
+                            width *= MAX_HEIGHT / height;
+                            height = MAX_HEIGHT;
+                        }
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    callback(canvas.toDataURL('image/jpeg', 0.6)); // Compress to 60% quality JPEG
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
 
         function renderImages() {
             imageContainer.innerHTML = '';
@@ -536,7 +495,7 @@
                 area: document.getElementById('area').value,
                 region: regionSelect.value,
                 district: districtSelect.value,
-                neighborhood: neighborhoodSelect.value,
+                neighborhood: document.getElementById('neighborhoodInput').value,
                 street: document.getElementById('street').value,
                 description: document.getElementById('description').value,
                 mainImage: uploadedImages[mainImageIndex]
