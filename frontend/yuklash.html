@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E'lon berish - EleganceEstate</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .upload-section {
+            padding: 120px 50px 50px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .upload-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            backdrop-filter: blur(12px);
+        }
+
+        .upload-card h1 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-section {
+            background: rgba(15, 23, 42, 0.4);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 25px;
+        }
+
+        .form-section h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+            color: #a5b4fc;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-main);
+            font-size: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(15, 23, 42, 0.9);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+
+        select.form-control option {
+            background-color: var(--bg-color);
+            color: #fff;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Type Selection (Radio buttons as cards) */
+        .type-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .type-option {
+            position: relative;
+        }
+
+        .type-option input {
+            display: none;
+        }
+
+        .type-card {
+            display: block;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .type-option input:checked + .type-card {
+            border-color: var(--primary);
+            background: rgba(79, 70, 229, 0.2);
+            color: #fff;
+        }
+
+        .type-option i {
+            display: block;
+            font-size: 30px;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+        }
+
+        .type-option input:checked + .type-card i {
+            color: var(--primary);
+        }
+
+        /* Image Upload */
+        .file-upload {
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            text-align: center;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary);
+            background: rgba(79, 70, 229, 0.05);
+        }
+
+        .file-upload i {
+            font-size: 40px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+        
+        .file-upload input {
+            display: none;
+        }
+
+        .image-preview-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .image-preview {
+            position: relative;
+            height: 120px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-preview.is-main {
+            border-color: var(--primary);
+        }
+
+        .image-preview.is-main::after {
+            content: 'Asosiy';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--primary);
+            color: #fff;
+            text-align: center;
+            font-size: 12px;
+            padding: 3px 0;
+            font-weight: 600;
+        }
+
+        .image-preview .remove-img {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <header style="background: var(--bg-color); border-bottom: 1px solid var(--glass-border);">
+        <a href="index.html" class="logo">EleganceEstate</a>
+        <nav class="nav-links">
+            <a href="index.html">Bosh sahifa</a>
+            <a href="sotib-olish.html">Sotib olish</a>
+            <a href="ijaraga-olish.html">Ijaraga olish</a>
+            <a href="biz-haqimizda.html">Biz haqimizda</a>
+            <a href="aloqa.html">Aloqa</a>
+            <a href="yuklash.html" class="nav-btn"><i class="fas fa-plus"></i> E'lon berish</a>
+        </nav>
+    </header>
+
+    <section class="upload-section">
+        <div class="upload-card">
+            <h1>Yangi kvartira qo'shish</h1>
+            
+            <form id="uploadForm">
+                
+                <!-- 1. E'lon turi -->
+                <div class="form-section">
+                    <h3>E'lon turi</h3>
+                    <div class="type-selector">
+                        <label class="type-option">
+                            <input type="radio" name="listingType" value="sotish" checked>
+                            <span class="type-card">
+                                <i class="fas fa-home"></i>
+                                Sotish
+                            </span>
+                        </label>
+                        <label class="type-option">
+                            <input type="radio" name="listingType" value="ijara">
+                            <span class="type-card">
+                                <i class="fas fa-key"></i>
+                                Ijaraga berish
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 2. Asosiy ma'lumotlar -->
+                <div class="form-section">
+                    <h3>Asosiy ma'lumotlar</h3>
+                    <div class="form-group">
+                        <label>Sarlavha (Qisqa va tushunarli)</label>
+                        <input type="text" id="title" class="form-control" placeholder="Masalan: Qorasaroyda 3 xonali evrota'mir kvartira" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Narxi ($)</label>
+                            <input type="number" id="price" class="form-control" placeholder="Masalan: 150000" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Xonalar soni</label>
+                            <input type="number" id="rooms" class="form-control" placeholder="3" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Maydoni (m²)</label>
+                            <input type="number" id="area" class="form-control" placeholder="120" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Qavat</label>
+                            <input type="text" id="floor" class="form-control" placeholder="Masalan: 4/9">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Manzil (Cascading Selects) -->
+                <div class="form-section">
+                    <h3>Manzil</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Viloyat</label>
+                            <select id="regionSelect" class="form-control" required>
+                                <option value="" disabled selected>Viloyatni tanlang</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tuman / Shahar</label>
+                            <select id="districtSelect" class="form-control" disabled required>
+                                <option value="" disabled selected>Avval viloyatni tanlang</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Mahalla / Punkt</label>
+                            <select id="neighborhoodSelect" class="form-control" disabled required>
+                                <option value="" disabled selected>Avval tumanni tanlang</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Ko'cha / Uy raqami</label>
+                            <input type="text" id="street" class="form-control" placeholder="Masalan: Navoiy ko'chasi, 12-uy">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Rasmlar -->
+                <div class="form-section">
+                    <h3>Rasmlar (Asosiy rasmni tanlash uchun ustiga bosing)</h3>
+                    <label class="file-upload">
+                        <input type="file" id="imageInput" multiple accept="image/*">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Rasmlarni yuklash uchun bosing</p>
+                    </label>
+                    <div class="image-preview-container" id="imageContainer">
+                        <!-- Images will appear here -->
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 25px;">
+                    <label>Batafsil tavsif</label>
+                    <textarea id="description" class="form-control" placeholder="Kvartira haqida batafsil yozing..." style="min-height: 150px;"></textarea>
+                </div>
+
+                <button type="submit" class="btn" style="margin-top: 30px; padding: 20px; font-size: 18px;">
+                    <i class="fas fa-paper-plane"></i> E'lonni tizimga qo'shish
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // --- 1. LOCATION DATA (MOCK) ---
+        const locations = {
+            "Toshkent shahri": {
+                "Yunusobod tumani": ["1-kvartal", "2-kvartal", "Bodomzor", "Minor"],
+                "Shayxontohur tumani": ["Ibn Sino", "Zarqaynar", "Chorsu"],
+                "Mirzo Ulug'bek tumani": ["Qorasuv", "TTZ", "Darxon"],
+                "Chilonzor tumani": ["Oqtepa", "1-kvartal", "Qatortol"]
+            },
+            "Toshkent viloyati": {
+                "Zangiota tumani": ["Eshonguzar", "Nazarbek"],
+                "Qibray tumani": ["Salomatlik", "Botanika"],
+                "Chirchiq shahri": ["Markaz", "Troisk"]
+            },
+            "Sirdaryo viloyati": {
+                "Guliston shahri": ["Markaz", "Do'stlik"],
+                "Sirdaryo tumani": ["Baxt", "Malik"]
+            },
+            "Jizzax viloyati": {
+                "Jizzax shahri": ["Zilol", "Sayxon"],
+                "G'allaorol tumani": ["Markaz", "Lalmikor"]
+            },
+            "Samarqand viloyati": {
+                "Samarqand shahri": ["Sug'diyona", "Bog'ishamol", "Mikrorayon"],
+                "Urgut tumani": ["Markaz", "Vagashti"]
+            },
+            "Farg'ona viloyati": {
+                "Farg'ona shahri": ["Markaz", "Kirgili"],
+                "Marg'ilon shahri": ["Yormazor", "Toshloq"]
+            },
+            "Namangan viloyati": {
+                "Namangan shahri": ["Davlatobod", "Chortoq"],
+                "Kosonsoy tumani": ["Markaz", "Chindavul"]
+            },
+            "Andijon viloyati": {
+                "Andijon shahri": ["Yangi bozor", "Eski shahar"],
+                "Asaka tumani": ["Markaz", "Kuyganyoy"]
+            },
+            "Qashqadaryo viloyati": {
+                "Qarshi shahri": ["Nasaf", "Paxtazor"],
+                "Shahrisabz shahri": ["Oqsaroy", "Kesh"]
+            },
+            "Surxondaryo viloyati": {
+                "Termiz shahri": ["Markaz", "Pattakesar"],
+                "Denov tumani": ["Xazorboq", "Sina"]
+            },
+            "Buxoro viloyati": {
+                "Buxoro shahri": ["Eski shahar", "Kogon"],
+                "G'ijduvon tumani": ["Markaz", "Soktari"]
+            },
+            "Navoiy viloyati": {
+                "Navoiy shahri": ["Markaz", "Zarafshon"],
+                "Xatirchi tumani": ["Langar", "Yangirabod"]
+            },
+            "Xorazm viloyati": {
+                "Urganch shahri": ["Markaz", "Darital"],
+                "Xiva shahri": ["Ichan qal'a", "Dishan qal'a"]
+            },
+            "Qoraqalpog'iston Respublikasi": {
+                "Nukus shahri": ["Markaz", "Xo'jayli"],
+                "Mo'ynoq tumani": ["Orol", "Qozoqdaryo"]
+            }
+        };
+
+        const regionSelect = document.getElementById('regionSelect');
+        const districtSelect = document.getElementById('districtSelect');
+        const neighborhoodSelect = document.getElementById('neighborhoodSelect');
+
+        // Populate Regions
+        for (let region in locations) {
+            let opt = document.createElement('option');
+            opt.value = region;
+            opt.textContent = region;
+            regionSelect.appendChild(opt);
+        }
+
+        // On Region Change
+        regionSelect.addEventListener('change', function() {
+            districtSelect.innerHTML = '<option value="" disabled selected>Tumanni tanlang</option>';
+            neighborhoodSelect.innerHTML = '<option value="" disabled selected>Avval tumanni tanlang</option>';
+            neighborhoodSelect.disabled = true;
+            
+            const selectedRegion = this.value;
+            if(selectedRegion) {
+                const districts = locations[selectedRegion];
+                for(let dist in districts) {
+                    let opt = document.createElement('option');
+                    opt.value = dist;
+                    opt.textContent = dist;
+                    districtSelect.appendChild(opt);
+                }
+                districtSelect.disabled = false;
+            } else {
+                districtSelect.disabled = true;
+            }
+        });
+
+        // On District Change
+        districtSelect.addEventListener('change', function() {
+            neighborhoodSelect.innerHTML = '<option value="" disabled selected>Mahallani tanlang</option>';
+            
+            const selectedRegion = regionSelect.value;
+            const selectedDistrict = this.value;
+            
+            if(selectedDistrict) {
+                const neighborhoods = locations[selectedRegion][selectedDistrict];
+                neighborhoods.forEach(hood => {
+                    let opt = document.createElement('option');
+                    opt.value = hood;
+                    opt.textContent = hood;
+                    neighborhoodSelect.appendChild(opt);
+                });
+                neighborhoodSelect.disabled = false;
+            } else {
+                neighborhoodSelect.disabled = true;
+            }
+        });
+
+
+        // --- 2. IMAGE UPLOAD & PREVIEW ---
+        const imageInput = document.getElementById('imageInput');
+        const imageContainer = document.getElementById('imageContainer');
+        let uploadedImages = []; // store data urls
+        let mainImageIndex = 0;
+
+        imageInput.addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const dataUrl = event.target.result;
+                    uploadedImages.push(dataUrl);
+                    renderImages();
+                };
+                reader.readAsDataURL(file);
+            });
+            // Clear input so same file can be selected again if removed
+            this.value = '';
+        });
+
+        function renderImages() {
+            imageContainer.innerHTML = '';
+            uploadedImages.forEach((imgSrc, index) => {
+                const div = document.createElement('div');
+                div.className = `image-preview ${index === mainImageIndex ? 'is-main' : ''}`;
+                
+                div.onclick = function() {
+                    mainImageIndex = index;
+                    renderImages();
+                };
+
+                const img = document.createElement('img');
+                img.src = imgSrc;
+
+                const removeBtn = document.createElement('div');
+                removeBtn.className = 'remove-img';
+                removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                removeBtn.onclick = function(e) {
+                    e.stopPropagation(); // prevent clicking the parent
+                    uploadedImages.splice(index, 1);
+                    if(mainImageIndex === index) mainImageIndex = 0;
+                    if(mainImageIndex >= uploadedImages.length) mainImageIndex = Math.max(0, uploadedImages.length - 1);
+                    renderImages();
+                };
+
+                div.appendChild(img);
+                div.appendChild(removeBtn);
+                imageContainer.appendChild(div);
+            });
+        }
+
+
+        // --- 3. FORM SUBMISSION (Mock Backend with LocalStorage) ---
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if(uploadedImages.length === 0) {
+                alert("Kamida bitta rasm yuklashingiz kerak!");
+                return;
+            }
+
+            const listingType = document.querySelector('input[name="listingType"]:checked').value;
+            
+            const newListing = {
+                id: Date.now().toString(),
+                type: listingType,
+                title: document.getElementById('title').value,
+                price: document.getElementById('price').value,
+                rooms: document.getElementById('rooms').value,
+                area: document.getElementById('area').value,
+                region: regionSelect.value,
+                district: districtSelect.value,
+                neighborhood: neighborhoodSelect.value,
+                street: document.getElementById('street').value,
+                description: document.getElementById('description').value,
+                mainImage: uploadedImages[mainImageIndex]
+            };
+
+            // Save to localStorage
+            let existingListings = JSON.parse(localStorage.getItem('estates') || '[]');
+            existingListings.unshift(newListing); // Add to beginning
+            localStorage.setItem('estates', JSON.stringify(existingListings));
+
+            alert("E'lon muvaffaqiyatli saqlandi!");
+            
+            // Redirect based on type
+            if(listingType === 'sotish') {
+                window.location.href = 'sotib-olish.html';
+            } else {
+                window.location.href = 'ijaraga-olish.html';
+            }
+        });
+    </script>
+</body>
+</html>
