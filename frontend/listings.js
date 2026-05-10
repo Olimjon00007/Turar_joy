@@ -14,16 +14,19 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    filteredEstates.forEach(estate => {
+    filteredEstates.forEach((estate, index) => {
+        const isVip = index % 3 === 0; // Every 3rd listing is VIP for marketing look
         const cardHtml = `
         <a href="property.html?id=${estate.id}" class="card-link">
             <div class="card">
-                <div class="card-img-wrapper">
-                    <span class="badge ${estate.type === 'ijara' ? 'badge-rent' : ''}">${estate.type === 'ijara' ? 'Ijara' : 'Sotuvda'}</span>
+                <div class="card-img-wrapper" style="background-image: url('${estate.mainImage}')">
+                    <span class="badge ${isVip ? 'badge-vip' : (estate.type === 'ijara' ? 'badge-rent' : '')}">
+                        ${isVip ? '<i class="fas fa-crown"></i> VIP' : (estate.type === 'ijara' ? 'Ijara' : 'Sotuvda')}
+                    </span>
                     <img src="${estate.mainImage}" alt="${estate.title}" class="card-img">
                 </div>
                 <div class="card-content">
-                    <div class="price">$${estate.price}${estate.type === 'ijara' ? ' / oy' : ''}</div>
+                    <div class="price">$${Number(estate.price).toLocaleString()}</div>
                     <h3 class="title">${estate.title}</h3>
                     <div class="details">
                         <span><i class="fas fa-bed"></i> ${estate.rooms} xona</span>

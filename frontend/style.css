@@ -191,9 +191,10 @@ header {
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
 }
 
 /* Property Card */
@@ -203,79 +204,109 @@ header {
   display: block;
 }
 
+/* Pro Marketing Card Styles */
 .card {
-  background: var(--card-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  overflow: hidden;
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease;
-  cursor: pointer;
-}
-
-.card:hover {
-  transform: translateY(-12px);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-  border-color: rgba(197, 160, 89, 0.3);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 .card-img-wrapper {
-  position: relative;
-  height: 250px;
-  overflow: hidden;
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+    background: #000; /* Bo'sh joylar qora bo'ladi */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Orqa fondagi xira rasm effekti */
+.card-img-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: inherit; /* Rasmni JS orqali beramiz yoki cover qilamiz */
+    background-size: cover;
+    background-position: center;
+    filter: blur(15px) brightness(0.5);
+    opacity: 0.5;
 }
 
 .card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Rasm kesilmaydi, to'liq sig'adi */
+    z-index: 2;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-color: var(--primary);
+}
+
+    object-fit: cover;
+    transition: transform 0.6s ease;
 }
 
 .card:hover .card-img {
-  transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 .badge {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  background: var(--primary);
-  color: #fff;
-  padding: 6px 12px;
-  border-radius: 30px;
-  font-size: 14px;
-  font-weight: 600;
-  backdrop-filter: blur(4px);
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: var(--primary);
+    color: var(--dark-bg);
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    z-index: 2;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-.badge-rent {
-  background: #10B981;
-}
-
-.listings-section {
-  padding: 100px 50px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.no-results {
-  text-align: center;
-  grid-column: 1/-1;
-  color: var(--text-muted);
-  font-size: 18px;
-  padding: 50px;
+.badge-vip {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #000;
 }
 
 .card-content {
-  padding: 25px;
+    padding: 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .price {
-  font-size: 30px;
-  font-weight: 600;
-  color: var(--primary);
-  margin-bottom: 12px;
-  letter-spacing: -0.5px;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.price::after {
+    content: " USD";
+    font-size: 14px;
+    opacity: 0.7;
 }
 
 .title {
