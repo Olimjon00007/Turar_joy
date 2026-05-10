@@ -3,59 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kvartira Tafsilotlari - EleganceEstate</title>
+    <title>Property Details - EleganceEstate</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --dark-bg: #121212;
+            --card-bg: #1E1E1E;
+            --primary: #C5A059;
+            --text-main: #FFFFFF;
+            --text-muted: #A0A0A0;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0; padding: 20px 0;
+        }
+
+        .main-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Yagona Premium Ramka */
+        .premium-frame {
+            background: var(--card-bg);
+            border-radius: 32px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            padding: 40px;
+        }
+
+        .top-layout {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 50px;
+        }
+
+        /* Gallery */
+        .gallery-container {
+            display: flex;
+            gap: 15px;
+            height: 500px;
+        }
+
+        .thumbnails {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            width: 80px;
+        }
+
+        .thumb-item {
+            width: 75px;
+            height: 75px;
+            border-radius: 12px;
+            cursor: pointer;
+            object-fit: cover;
+            opacity: 0.4;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .thumb-item.active {
+            border-color: var(--primary);
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .main-image-viewer {
+            flex-grow: 1;
+            background: #000;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .main-image-viewer img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* Info */
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .header-info h1 {
+            font-size: 36px;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: -1px;
+        }
+
+        .hero-location {
+            color: var(--text-muted);
+            margin-top: 10px;
+            font-size: 15px;
+        }
+
+        .price-section {
+            margin: 30px 0;
+            padding: 25px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .price-value {
+            font-size: 38px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .feature-item {
+            background: rgba(255,255,255,0.02);
+            padding: 18px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .feature-item i { color: var(--primary); font-size: 20px; }
+        .feature-item span { font-weight: 600; }
+
+        .action-btn {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 20px;
+            border-radius: 16px;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(197, 160, 89, 0.2);
+        }
+
+        .description-box {
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .description-box h2 { font-size: 24px; margin-bottom: 20px; }
+        .description-box p { color: var(--text-muted); line-height: 1.8; }
+
+        @media (max-width: 1100px) {
+            .top-layout { grid-template-columns: 1fr; }
+            .premium-frame { padding: 25px; }
+            .gallery-container { height: 400px; }
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <a href="index.html" class="logo">EleganceEstate</a>
-        <nav class="nav-links">
-            <a href="index.html">Bosh sahifa</a>
-            <a href="sotib-olish.html">Sotib olish</a>
-            <a href="ijaraga-olish.html">Ijaraga olish</a>
-            <a href="biz-haqimizda.html">Biz haqimizda</a>
-            <a href="aloqa.html">Aloqa</a>
-            <a href="yuklash.html" class="nav-btn"><i class="fas fa-plus"></i> E'lon berish</a>
-        </nav>
-    </header>
-
-    <section class="detail-hero" id="detailHero">
-        <div class="detail-header">
-            <h1 id="detailTitle">Yuklanmoqda...</h1>
-            <div class="location">
-                <i class="fas fa-map-marker-alt"></i> <span id="detailLocation">Manzil yuklanmoqda...</span>
-            </div>
-        </div>
-    </section>
-
-    <div class="detail-content">
-        <div class="main-info">
-            <h3>Kvartira haqida</h3>
-            <p id="detailDescription">Tavsif yuklanmoqda...</p>
-
-            <h3 class="section-title-spacing">Xususiyatlar</h3>
-            <div class="features">
-                <span class="feature-tag"><i class="fas fa-bed"></i> <span id="detailRooms">0</span> xona</span>
-                <span class="feature-tag"><i class="fas fa-vector-square"></i> <span id="detailArea">0</span> m²</span>
-                <span class="feature-tag"><i class="fas fa-layer-group"></i> <span id="detailFloor">Noma'lum</span></span>
-                <span class="feature-tag"><i class="fas fa-shield-alt"></i> 24/7 Qo'riqlash</span>
-                <span class="feature-tag"><i class="fas fa-wifi"></i> Internet</span>
-            </div>
-        </div>
-
-        <div class="sidebar">
-            <div class="action-card">
-                <div class="price" id="detailPrice">$0</div>
-                <div class="property-meta" id="detailMeta">
-                    <!-- Dynamic meta info -->
-                </div>
-                
-                <a href="#" class="btn">Sotib olish uchun ariza</a>
-                <a href="#" class="btn btn-outline" id="contactTelegram"><i class="fab fa-telegram"></i> Telegram orqali bog'lanish</a>
-                <a href="tel:+998901234567" class="btn btn-outline"><i class="fas fa-phone"></i> +998 90 123 45 67</a>
-            </div>
-        </div>
+    <div class="main-container">
+        <div id="dynamicContent"></div>
     </div>
 
     <script>
@@ -63,31 +192,66 @@
             const params = new URLSearchParams(window.location.search);
             const propertyId = params.get('id');
             const estates = JSON.parse(localStorage.getItem('estates') || '[]');
-            
-            const property = estates.find(e => e.id === propertyId);
+            const estate = estates.find(e => e.id === propertyId);
 
-            if (!property) {
-                document.querySelector('.detail-content').innerHTML = '<div class="no-results">E\'lon topilmadi yoki o\'chirib tashlangan.</div>';
+            if (!estate) {
+                document.getElementById('dynamicContent').innerHTML = '<h1 style="text-align:center;">E\'lon topilmadi</h1>';
                 return;
             }
 
-            // Update UI
-            document.getElementById('detailTitle').textContent = property.title;
-            document.getElementById('detailLocation').textContent = `${property.region}, ${property.district}, ${property.neighborhood || ''}`;
-            document.getElementById('detailDescription').textContent = property.description || 'Tavsif berilmagan.';
-            document.getElementById('detailPrice').textContent = `$${property.price}${property.type === 'ijara' ? ' / oy' : ''}`;
-            document.getElementById('detailRooms').textContent = property.rooms;
-            document.getElementById('detailArea').textContent = property.area;
-            document.getElementById('detailFloor').textContent = property.floor || 'Qavat noma\'lum';
-            
-            if (property.mainImage) {
-                document.getElementById('detailHero').style.backgroundImage = `url(${property.mainImage})`;
-            }
+            const images = estate.images || [estate.mainImage];
 
-            // Telegram link (optional enhancement)
-            document.getElementById('contactTelegram').href = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('Ushbu e\'lon bo\'yicha bog\'lanmoqchiman: ' + property.title)}`;
+            document.getElementById('dynamicContent').innerHTML = `
+                <div class="premium-frame">
+                    <div class="top-layout">
+                        <!-- Left: Gallery -->
+                        <div class="gallery-container">
+                            <div class="thumbnails">
+                                ${images.map((img, idx) => `
+                                    <img src="${img}" class="thumb-item ${idx === 0 ? 'active' : ''}" onclick="changeMainImage(this, '${img}')">
+                                `).join('')}
+                            </div>
+                            <div class="main-image-viewer">
+                                <img src="${images[0]}" id="mainDisplayImg">
+                            </div>
+                        </div>
+
+                        <!-- Right: Info -->
+                        <div class="info-section">
+                            <div class="header-info">
+                                <h1 class="hero-title">${estate.title}</h1>
+                                <div class="hero-location">
+                                    <i class="fas fa-map-marker-alt"></i> ${estate.region}, ${estate.district}, ${estate.neighborhood || ''}
+                                </div>
+                            </div>
+
+                            <div class="price-section">
+                                <div class="price-value">$${Number(estate.price).toLocaleString()} <span style="font-size:16px; color:var(--text-muted);">USD</span></div>
+                                <button class="action-btn" onclick="alert('Ariza qabul qilindi!')">Sotib olish uchun ariza</button>
+                            </div>
+
+                            <div class="features-grid">
+                                <div class="feature-item"><i class="fas fa-door-open"></i> <span>${estate.rooms} xona</span></div>
+                                <div class="feature-item"><i class="fas fa-expand"></i> <span>${estate.area} m²</span></div>
+                                <div class="feature-item"><i class="fas fa-layer-group"></i> <span>${estate.floor}-qavat</span></div>
+                                <div class="feature-item"><i class="fas fa-bath"></i> <span>${estate.bathrooms || 1} vanna</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="description-box">
+                        <h2>Kvartira haqida</h2>
+                        <p>${estate.description || 'Ma\'lumot berilmagan'}</p>
+                    </div>
+                </div>
+            `;
         });
-    </script>
 
+        function changeMainImage(el, src) {
+            document.getElementById('mainDisplayImg').src = src;
+            document.querySelectorAll('.thumb-item').forEach(item => item.classList.remove('active'));
+            el.classList.add('active');
+        }
+    </script>
 </body>
 </html>

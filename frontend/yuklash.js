@@ -165,7 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
             neighborhood: document.getElementById('neighborhoodInput').value,
             street: document.getElementById('street').value,
             description: document.getElementById('description').value,
-            mainImage: uploadedImages[mainImageIndex]
+            mainImage: uploadedImages[mainImageIndex],
+            images: uploadedImages // Barcha rasmlarni saqlaymiz
         };
 
         setTimeout(() => {
