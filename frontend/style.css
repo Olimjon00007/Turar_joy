@@ -23,33 +23,44 @@ body {
   background-color: var(--bg-color);
   color: var(--text-main);
   line-height: 1.6;
-  padding-top: 80px; /* Account for fixed header */
+  padding-top: 0; /* Bo'shliq olib tashlandi */
 }
 
 /* Navbar */
 header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 15px 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1000;
-  background: rgba(24, 23, 21, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--glass-border);
-  transition: all 0.3s ease;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .logo {
-  font-size: 28px;
-  font-weight: 700;
-  color: #fff;
-  text-decoration: none;
-  letter-spacing: 1px;
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--primary);
+    text-decoration: none;
+    letter-spacing: -1px;
+}
+
+nav a {
+    color: var(--text-main);
+    text-decoration: none;
+    margin-left: 30px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: color 0.3s ease;
+    opacity: 0.8;
+}
+
+nav a:hover {
+    color: var(--primary);
+    opacity: 1;
 }
 
 .nav-links {
@@ -250,16 +261,13 @@ header {
     object-fit: contain; /* Rasm kesilmaydi, to'liq sig'adi */
     z-index: 2;
     position: relative;
+    transition: transform 0.6s ease;
 }
 
 .card:hover {
     transform: translateY(-12px) scale(1.02);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     border-color: var(--primary);
-}
-
-    object-fit: cover;
-    transition: transform 0.6s ease;
 }
 
 .card:hover .card-img {
