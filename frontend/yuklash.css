@@ -12,19 +12,6 @@ body {
     background-attachment: fixed;
 }
 
-/* Header */
-.yuklash-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(24, 23, 21, 0.8);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--glass-border);
-    padding: 15px 50px;
-    z-index: 1000;
-}
-
 /* Main Section */
 .upload-section {
     padding: 140px 20px 80px;
@@ -122,6 +109,24 @@ body {
     background: rgba(15, 23, 42, 0.8);
     box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.15);
     transform: translateY(-2px);
+}
+
+#typeNotice {
+    margin-top: 15px;
+    font-size: 14px;
+    color: var(--primary);
+    font-weight: 500;
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.description-group {
+    margin-top: 25px;
+}
+
+#description {
+    min-height: 150px;
+    resize: vertical;
 }
 
 .form-row {
@@ -246,39 +251,38 @@ body {
 
 .image-preview.is-main {
     border-color: var(--primary);
-    padding: 2px;
+    transform: scale(1.05);
 }
 
 .image-preview.is-main::after {
-    content: 'ASOSIY';
+    content: "Asosiy";
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 5px;
+    left: 5px;
     background: var(--primary);
-    color: #181715;
-    padding: 4px 10px;
-    border-radius: 8px;
+    color: var(--dark-bg);
     font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
 }
 
-.image-preview .remove-img {
+.remove-img {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(255, 59, 48, 0.9);
+    top: 5px;
+    right: 5px;
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 0, 0, 0.8);
     color: white;
-    border-radius: 10px;
-    width: 32px;
-    height: 32px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
-    transition: all 0.2s ease;
+    font-size: 12px;
+    cursor: pointer;
     opacity: 0;
-    transform: translateY(-5px);
+    transition: opacity 0.2s;
 }
 
 .image-preview:hover .remove-img {

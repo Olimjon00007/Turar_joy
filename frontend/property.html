@@ -1,11 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kvartira Tafsilotlari - EleganceEstate</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -21,11 +20,11 @@
         </nav>
     </header>
 
-    <section class="detail-hero">
+    <section class="detail-hero" id="detailHero">
         <div class="detail-header">
-            <h1>Toshkent City, Zamonaviy 3 xonali</h1>
-            <div class="location" style="color: #e2e8f0; font-size: 18px; margin-top: 10px;">
-                <i class="fas fa-map-marker-alt"></i> Shayxontohur tumani, Toshkent
+            <h1 id="detailTitle">Yuklanmoqda...</h1>
+            <div class="location">
+                <i class="fas fa-map-marker-alt"></i> <span id="detailLocation">Manzil yuklanmoqda...</span>
             </div>
         </div>
     </section>
@@ -33,35 +32,62 @@
     <div class="detail-content">
         <div class="main-info">
             <h3>Kvartira haqida</h3>
-            <p>Ushbu zamonaviy va yorug' kvartira Toshkent City markazida joylashgan. Eng yuqori sifatli materiallardan foydalanilgan premium ta'mir. Derazadan shaharning ajoyib manzarasi ko'rinib turadi.</p>
-            <p>Uyda barcha kerakli maishiy texnika va zamonaviy mebellar mavjud. Katta oila uchun yoki sarmoya sifatida juda qulay.</p>
+            <p id="detailDescription">Tavsif yuklanmoqda...</p>
 
-            <h3 style="margin-top: 40px;">Qulayliklar</h3>
+            <h3 class="section-title-spacing">Xususiyatlar</h3>
             <div class="features">
-                <span class="feature-tag"><i class="fas fa-parking"></i> Avtoturargoh</span>
-                <span class="feature-tag"><i class="fas fa-swimming-pool"></i> Hovuz</span>
-                <span class="feature-tag"><i class="fas fa-dumbbell"></i> Fitnes zal</span>
+                <span class="feature-tag"><i class="fas fa-bed"></i> <span id="detailRooms">0</span> xona</span>
+                <span class="feature-tag"><i class="fas fa-vector-square"></i> <span id="detailArea">0</span> m²</span>
+                <span class="feature-tag"><i class="fas fa-layer-group"></i> <span id="detailFloor">Noma'lum</span></span>
                 <span class="feature-tag"><i class="fas fa-shield-alt"></i> 24/7 Qo'riqlash</span>
-                <span class="feature-tag"><i class="fas fa-wifi"></i> Yuqori tezlikdagi internet</span>
-                <span class="feature-tag"><i class="fas fa-snowflake"></i> Konditsioner</span>
+                <span class="feature-tag"><i class="fas fa-wifi"></i> Internet</span>
             </div>
         </div>
 
         <div class="sidebar">
             <div class="action-card">
-                <div class="price">$150,000</div>
-                <div style="color: var(--text-muted); margin-bottom: 20px;">
-                    <i class="fas fa-ruler-combined"></i> 120 mÂ² | 
-                    <i class="fas fa-bed"></i> 3 Xona
+                <div class="price" id="detailPrice">$0</div>
+                <div class="property-meta" id="detailMeta">
+                    <!-- Dynamic meta info -->
                 </div>
                 
                 <a href="#" class="btn">Sotib olish uchun ariza</a>
-                <a href="#" class="btn btn-outline"><i class="fab fa-telegram"></i> Telegram orqali yozish</a>
-                <a href="#" class="btn btn-outline"><i class="fas fa-phone"></i> +998 90 123 45 67</a>
+                <a href="#" class="btn btn-outline" id="contactTelegram"><i class="fab fa-telegram"></i> Telegram orqali bog'lanish</a>
+                <a href="tel:+998901234567" class="btn btn-outline"><i class="fas fa-phone"></i> +998 90 123 45 67</a>
             </div>
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const propertyId = params.get('id');
+            const estates = JSON.parse(localStorage.getItem('estates') || '[]');
+            
+            const property = estates.find(e => e.id === propertyId);
+
+            if (!property) {
+                document.querySelector('.detail-content').innerHTML = '<div class="no-results">E\'lon topilmadi yoki o\'chirib tashlangan.</div>';
+                return;
+            }
+
+            // Update UI
+            document.getElementById('detailTitle').textContent = property.title;
+            document.getElementById('detailLocation').textContent = `${property.region}, ${property.district}, ${property.neighborhood || ''}`;
+            document.getElementById('detailDescription').textContent = property.description || 'Tavsif berilmagan.';
+            document.getElementById('detailPrice').textContent = `$${property.price}${property.type === 'ijara' ? ' / oy' : ''}`;
+            document.getElementById('detailRooms').textContent = property.rooms;
+            document.getElementById('detailArea').textContent = property.area;
+            document.getElementById('detailFloor').textContent = property.floor || 'Qavat noma\'lum';
+            
+            if (property.mainImage) {
+                document.getElementById('detailHero').style.backgroundImage = `url(${property.mainImage})`;
+            }
+
+            // Telegram link (optional enhancement)
+            document.getElementById('contactTelegram').href = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('Ushbu e\'lon bo\'yicha bog\'lanmoqchiman: ' + property.title)}`;
+        });
+    </script>
+
 </body>
 </html>
-

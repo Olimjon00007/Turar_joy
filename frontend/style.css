@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
 :root {
   --primary: #C5A059; /* Warm Gold */
@@ -22,19 +23,25 @@ body {
   background-color: var(--bg-color);
   color: var(--text-main);
   line-height: 1.6;
+  padding-top: 80px; /* Account for fixed header */
 }
 
 /* Navbar */
 header {
-  position: absolute;
+  position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
-  padding: 20px 50px;
+  padding: 15px 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 100;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%);
+  z-index: 1000;
+  background: rgba(24, 23, 21, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
 }
 
 .logo {
@@ -241,6 +248,24 @@ header {
   backdrop-filter: blur(4px);
 }
 
+.badge-rent {
+  background: #10B981;
+}
+
+.listings-section {
+  padding: 100px 50px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.no-results {
+  text-align: center;
+  grid-column: 1/-1;
+  color: var(--text-muted);
+  font-size: 18px;
+  padding: 50px;
+}
+
 .card-content {
   padding: 25px;
 }
@@ -283,6 +308,22 @@ header {
   align-items: center;
   gap: 8px;
 }
+
+.detail-header .location {
+  color: #e2e8f0;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.section-title-spacing {
+  margin-top: 40px;
+}
+
+.property-meta {
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
 
 /* Property Detail Page Specific */
 .detail-hero {
@@ -415,4 +456,11 @@ header {
   .hero-content h1 {
     font-size: 36px;
   }
+}
+
+.hero-btn {
+  display: inline-block;
+  width: auto;
+  padding: 15px 40px;
+  font-size: 18px;
 }

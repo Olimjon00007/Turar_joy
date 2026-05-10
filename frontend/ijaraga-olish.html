@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ijaraga olish - EleganceEstate</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body style="padding-top: 80px;">
+<body>
 
-    <header style="background: var(--bg-color); border-bottom: 1px solid var(--glass-border);">
+    <header>
         <a href="index.html" class="logo">EleganceEstate</a>
         <nav class="nav-links">
             <a href="sotib-olish.html">Sotib olish</a>
@@ -20,7 +19,7 @@
         </nav>
     </header>
 
-    <section class="listings-section" style="padding-top: 60px;">
+    <section class="listings-section">
         <div class="section-header">
             <h2>Ijaraga Beriladigan Kvartiralar</h2>
             <p>Siz uchun maxsus tanlangan zamonaviy uylar</p>
@@ -30,42 +29,6 @@
         </div>
     </section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const grid = document.getElementById('propertiesGrid');
-            const estates = JSON.parse(localStorage.getItem('estates') || '[]');
-            const ijaraEstates = estates.filter(e => e.type === 'ijara');
-
-            if (ijaraEstates.length === 0) {
-                grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--text-muted); font-size: 18px;">Hozircha ijaraga beriladigan uylar yo\'q.</p>';
-                return;
-            }
-
-            ijaraEstates.forEach(estate => {
-                const cardHtml = `
-                <a href="property.html" class="card-link">
-                    <div class="card">
-                        <div class="card-img-wrapper">
-                            <span class="badge" style="background: #10B981;">Ijara</span>
-                            <img src="${estate.mainImage}" alt="${estate.title}" class="card-img">
-                        </div>
-                        <div class="card-content">
-                            <div class="price">$${estate.price} / oy</div>
-                            <h3 class="title">${estate.title}</h3>
-                            <div class="details">
-                                <span><i class="fas fa-bed"></i> ${estate.rooms} xona</span>
-                                <span><i class="fas fa-vector-square"></i> ${estate.area} m²</span>
-                            </div>
-                            <div class="location">
-                                <i class="fas fa-map-marker-alt"></i> ${estate.region}, ${estate.district}
-                            </div>
-                        </div>
-                    </div>
-                </a>`;
-                grid.insertAdjacentHTML('beforeend', cardHtml);
-            });
-        });
-    </script>
+    <script src="listings.js"></script>
 </body>
 </html>
-
