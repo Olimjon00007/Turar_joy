@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    document.getElementById('uploadForm')?.addEventListener('submit', function(e) {
+    document.getElementById('uploadForm')?.addEventListener('submit', async function(e) {
         e.preventDefault();
         if(uploadedImages.length === 0) { alert("Kamida bitta rasm yuklang!"); return; }
 
@@ -152,7 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const listingType = document.querySelector('input[name="listingType"]:checked').value;
         const newListing = {
-            id: Date.now().toString(),
             type: listingType,
             title: document.getElementById('title').value,
             price: document.getElementById('price').value,
@@ -166,20 +165,33 @@ document.addEventListener('DOMContentLoaded', () => {
             street: document.getElementById('street').value,
             description: document.getElementById('description').value,
             mainImage: uploadedImages[mainImageIndex],
-            images: uploadedImages // Barcha rasmlarni saqlaymiz
+            images: JSON.stringify(uploadedImages)
         };
 
-        setTimeout(() => {
-            const estates = JSON.parse(localStorage.getItem('estates') || '[]');
-            estates.unshift(newListing);
-            localStorage.setItem('estates', JSON.stringify(estates));
-            
-            submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> Muvaffaqiyatli saqlandi!';
-            submitBtn.style.background = '#10B981';
+        try {
+            const response = await fetch('/api/listings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newListing)
+            });
 
-            setTimeout(() => {
-                window.location.href = listingType === 'sotish' ? 'sotib-olish.html' : 'ijaraga-olish.html';
-            }, 1000);
-        }, 1500);
+            const result = await response.json();
+
+            if (result.success) {
+                submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> Muvaffaqiyatli saqlandi!';
+                submitBtn.style.background = '#10B981';
+                setTimeout(() => {
+                    window.location.href = listingType === 'sotish' ? 'sotib-olish.html' : 'ijaraga-olish.html';
+                }, 1000);
+            } else {
+                alert('Xatolik: ' + result.error);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> E\'lonni tizimga qo\'shish';
+            }
+        } catch (err) {
+            console.error('Yuborishda xato:', err);
+            alert('Serverga ulanishda xato!');
+            submitBtn.disabled = false;
+        }
     });
 });

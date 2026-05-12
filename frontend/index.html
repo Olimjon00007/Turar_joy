@@ -10,16 +10,63 @@
 <body>
 
     <header>
-        <a href="index.html" class="logo">EleganceEstate</a>
+        <div class="header-left">
+            <a href="javascript:void(0)" onclick="handleAdminClick()" class="icon-btn" id="pencilBtn"><i class="fas fa-pencil-alt"></i></a>
+            <a href="index.html" class="logo">EleganceEstate</a>
+        </div>
         <nav class="nav-links">
             <a href="index.html">Bosh sahifa</a>
             <a href="sotib-olish.html">Sotib olish</a>
             <a href="ijaraga-olish.html">Ijaraga olish</a>
             <a href="biz-haqimizda.html">Biz haqimizda</a>
             <a href="aloqa.html">Aloqa</a>
-            <a href="yuklash.html" class="nav-btn"><i class="fas fa-plus"></i> E'lon berish</a>
+            <div class="header-right" id="authSection">
+                <a href="javascript:void(0)" onclick="handleUploadClick()" class="nav-btn"><i class="fas fa-plus"></i> E'lon berish</a>
+                <a href="javascript:void(0)" onclick="handleAdminClick()" class="icon-btn" id="profileBtn"><i class="fas fa-user-circle"></i></a>
+            </div>
         </nav>
     </header>
+
+    <div id="premiumModal" class="modal-overlay">
+        <div class="premium-modal">
+            <div class="modal-icon">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h2>Kirish taqiqlangan</h2>
+            <p>E'lon qo'shish yoki boshqaruv paneliga kirish uchun faqat ruxsat berilgan adminlar ruxsati kerak.</p>
+            <div class="modal-btns">
+                <button class="btn btn-secondary" onclick="closePremiumModal()">Yopish</button>
+                <button class="btn" onclick="window.location.href='/admin/login.html?redirect=/yuklash.html'">Login sahifasiga o'tish</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const auth = checkAuth();
+            const authSection = document.getElementById('authSection');
+            
+            if (auth.isLoggedIn) {
+                const logoutBtn = document.createElement('a');
+                logoutBtn.href = 'javascript:void(0)';
+                logoutBtn.className = 'icon-btn';
+                logoutBtn.style.color = '#ff4d4d';
+                logoutBtn.title = 'Chiqish';
+                logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i>';
+                logoutBtn.onclick = logout;
+                authSection.appendChild(logoutBtn);
+            } else {
+                const loginBtn = document.createElement('a');
+                loginBtn.href = '/admin/login.html';
+                loginBtn.className = 'btn'; // Premium class from style.css
+                loginBtn.style.padding = '8px 20px';
+                loginBtn.style.fontSize = '14px';
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Kirish';
+                authSection.insertBefore(loginBtn, authSection.firstChild);
+            }
+        });
+    </script>
 
     <section class="hero">
         <div class="hero-content">

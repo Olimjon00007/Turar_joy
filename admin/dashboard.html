@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Kvartira Admin</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            height: 100vh;
+        }
+        .sidebar {
+            background: rgba(15, 15, 15, 0.95);
+            border-right: 1px solid var(--glass-border);
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .sidebar-brand {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 40px;
+            padding: 0 15px;
+        }
+        .nav-item {
+            padding: 14px 20px;
+            border-radius: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .nav-item:hover, .nav-item.active {
+            background: rgba(197, 160, 89, 0.1);
+            color: var(--primary);
+        }
+        .main-content {
+            padding: 50px;
+            overflow-y: auto;
+            background: #121212;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 25px;
+            border-radius: 20px;
+        }
+        .stat-card h4 {
+            color: var(--text-muted);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        .stat-card .value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--glass-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+        .data-table th {
+            text-align: left;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .data-table td {
+            padding: 20px;
+            border-bottom: 1px solid var(--glass-border);
+            color: #fff;
+        }
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-small {
+            padding: 8px 12px;
+            font-size: 12px;
+            width: auto;
+            margin-bottom: 0;
+        }
+        .btn-delete {
+            background: #ef4444;
+            color: #fff;
+        }
+        .btn-delete:hover {
+            background: #dc2626;
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.2);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="sidebar-brand">Elegance Admin</div>
+            <div class="nav-item active" onclick="showTab('listings')">
+                <i class="fas fa-home"></i> E'lonlar
+            </div>
+            <div class="nav-item" id="adminNav" onclick="showTab('admins')" style="display: none;">
+                <i class="fas fa-users-cog"></i> Adminlar
+            </div>
+            <div style="margin-top: auto;">
+                <div class="nav-item" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Chiqish
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- Listings Tab -->
+            <div id="listingsTab" class="tab-content active">
+                <div class="admin-header">
+                    <h2>E'lonlar boshqaruvi</h2>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>Jami e'lonlar</h4>
+                        <div class="value" id="totalCount">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Sotuvda</h4>
+                        <div class="value" id="saleCount">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Ijarada</h4>
+                        <div class="value" id="rentCount">0</div>
+                    </div>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Sarlavha</th>
+                            <th>Narxi</th>
+                            <th>Turi</th>
+                            <th>Joylashuv</th>
+                            <th>Amallar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listingsBody">
+                        <!-- Data rows here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Admins Tab -->
+            <div id="adminsTab" class="tab-content">
+                <div class="admin-header">
+                    <h2>Adminlar boshqaruvi</h2>
+                    <button class="btn btn-small" style="width: auto; padding: 12px 25px;" onclick="openAdminModal()">+ Yangi Admin</button>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Foydalanuvchi</th>
+                            <th>Roli</th>
+                            <th>Amallar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminsBody">
+                        <!-- Admin list here -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Admin Modal -->
+    <div id="adminModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:2000; align-items:center; justify-content:center;">
+        <div class="login-card" style="background:#1e1e1e; padding:40px; border-radius:24px; border:1px solid var(--glass-border); width:90%; max-width:400px;">
+            <h3>Yangi Admin Qo'shish</h3>
+            <div class="input-group" style="margin-top:20px;">
+                <label>Username</label>
+                <input type="text" id="newAdminUser" placeholder="Admin nomi" class="form-control" style="width:100%; padding:12px; background:rgba(255,255,255,0.05); border:1px solid var(--glass-border); color:#fff; border-radius:10px;">
+            </div>
+            <div class="input-group" style="margin-top:15px;">
+                <label>Parol</label>
+                <input type="password" id="newAdminPass" placeholder="••••••••" class="form-control" style="width:100%; padding:12px; background:rgba(255,255,255,0.05); border:1px solid var(--glass-border); color:#fff; border-radius:10px;">
+            </div>
+            <div style="display:flex; gap:10px; margin-top:25px;">
+                <button class="btn" style="background:#333; color:#fff;" onclick="closeAdminModal()">Bekor qilish</button>
+                <button class="btn" onclick="saveAdmin()">Saqlash</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/app.js"></script>
+    <script>
+        // Auth Check
+        if (!protectPage(['owner', 'admin'])) {
+            // Modal is shown by app.js
+        }
+
+        const role = localStorage.getItem('userRole');
+        if(role === 'owner') {
+            document.getElementById('adminNav').style.display = 'flex';
+        }
+
+        async function showTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            if(tab === 'listings') {
+                document.getElementById('listingsTab').classList.add('active');
+                document.querySelector('.nav-item:first-child').classList.add('active');
+                loadListings();
+            } else {
+                document.getElementById('adminsTab').classList.add('active');
+                document.getElementById('adminNav').classList.add('active');
+                loadAdmins();
+            }
+        }
+
+        async function loadListings() {
+            const body = document.getElementById('listingsBody');
+            body.innerHTML = '<tr><td colspan="5" style="text-align:center;">Yuklanmoqda...</td></tr>';
+            
+            try {
+                const response = await fetch('/api/listings');
+                const listings = await response.json();
+                
+                body.innerHTML = '';
+                listings.forEach(listing => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>#${listing.id}</td>
+                        <td>${listing.title}</td>
+                        <td>$${Number(listing.price).toLocaleString()}</td>
+                        <td><span class="badge" style="background:${listing.type === 'sotish' ? 'var(--primary)' : '#3b82f6'}; color:#000;">${listing.type}</span></td>
+                        <td class="action-btns">
+                            <button class="btn btn-small btn-delete" onclick="deleteListing(${listing.id})">O'chirish</button>
+                        </td>
+                    `;
+                    body.appendChild(tr);
+                });
+            } catch (err) {
+                body.innerHTML = '<tr><td colspan="5" style="color:red;">Xatolik yuz berdi!</td></tr>';
+            }
+        }
+
+        async function deleteListing(id) {
+            if(confirm('Ushbu e\'lonni o\'chirishni xohlaysizmi?')) {
+                const res = await fetch(`/api/listings/${id}`, { method: 'DELETE' });
+                if((await res.json()).success) loadListings();
+            }
+        }
+
+        function openAdminModal() {
+            document.getElementById('adminModal').style.display = 'flex';
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').style.display = 'none';
+        }
+
+        async function saveAdmin() {
+            const username = document.getElementById('newAdminUser').value;
+            const password = document.getElementById('newAdminPass').value;
+
+            if(!username || !password) { alert('Barcha maydonlarni to\'ldiring!'); return; }
+
+            const res = await fetch('/api/admins', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+
+            if((await res.json()).success) {
+                alert('Yangi admin qo\'shildi!');
+                closeAdminModal();
+                loadAdmins();
+            }
+        }
+
+        async function loadAdmins() {
+            const body = document.getElementById('adminsBody');
+            body.innerHTML = '';
+
+            try {
+                const response = await fetch('/api/admins');
+                const admins = await response.json();
+
+                // Owner row
+                body.innerHTML = `
+                    <tr>
+                        <td>owner</td>
+                        <td><span class="badge" style="background:var(--primary); color:#000;">Owner</span></td>
+                        <td>-</td>
+                    </tr>
+                `;
+
+                admins.forEach(admin => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${admin.username}</td>
+                        <td><span class="badge" style="background:rgba(255,255,255,0.1); color:#fff;">Admin</span></td>
+                        <td class="action-btns">
+                            <button class="btn btn-small btn-delete" onclick="deleteAdmin(${admin.id})">O'chirish</button>
+                        </td>
+                    `;
+                    body.appendChild(tr);
+                });
+            } catch (err) { console.error(err); }
+        }
+
+        async function deleteAdmin(id) {
+            if(confirm('Ushbu adminni o\'chirishni xohlaysizmi?')) {
+                const res = await fetch(`/api/admins/${id}`, { method: 'DELETE' });
+                if((await res.json()).success) loadAdmins();
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userRole');
+            window.location.href = 'login.html';
+        }
+        loadListings();
+    </script>
+</body>
+</html>

@@ -10,21 +10,162 @@
 <body>
 
     <header>
-        <a href="index.html" class="logo">EleganceEstate</a>
+        <div class="header-left">
+            <a href="javascript:void(0)" onclick="handleAdminClick()" class="icon-btn" id="pencilBtn"><i class="fas fa-pencil-alt"></i></a>
+            <a href="index.html" class="logo">EleganceEstate</a>
+        </div>
         <nav class="nav-links">
             <a href="index.html">Bosh sahifa</a>
             <a href="sotib-olish.html">Sotib olish</a>
             <a href="ijaraga-olish.html">Ijaraga olish</a>
             <a href="biz-haqimizda.html">Biz haqimizda</a>
             <a href="aloqa.html">Aloqa</a>
-            <a href="yuklash.html" class="nav-btn"><i class="fas fa-plus"></i> E'lon berish</a>
+            <div class="header-right">
+                <a href="yuklash.html" class="nav-btn"><i class="fas fa-plus"></i> E'lon berish</a>
+                <a href="javascript:void(0)" onclick="handleAdminClick()" class="icon-btn" id="profileBtn"><i class="fas fa-user-circle"></i></a>
+            </div>
         </nav>
     </header>
 
-    <section class="static-section">
-        <h1>Biz haqimizda</h1>
-        <p>Bizning kompaniyamiz va loyihamiz haqida to'liq ma'lumot.</p>
+    <script>
+        function handleAdminClick() {
+            if(localStorage.getItem('isLoggedIn') === 'true') {
+                window.location.href = '../admin/dashboard.html';
+            } else {
+                window.location.href = '../admin/login.html';
+            }
+        }
+    </script>
+
+    <section class="about-hero">
+        <div class="about-hero-content">
+            <h1>Biz Haqimizda</h1>
+            <p>Bizning maqsadimiz — zamonaviy texnologiyalar orqali ko'chmas mulk bozorida qulaylik va ishonchni ta'minlash.</p>
+        </div>
     </section>
+
+    <section class="about-details">
+        <div class="about-card">
+            <div class="developer-info">
+                <div class="dev-header">
+                    <div class="dev-img">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="dev-title">
+                        <h2>Olimjon To'xtasinov</h2>
+                        <span>Professional Web Developer & UzCoders Team Member</span>
+                    </div>
+                </div>
+                <div class="dev-bio">
+                    <p>Men 18 yoshli professional veb-dasturchiman. 9 oydan ortiq professional tajribaga egaman va hozirgacha 10 dan ortiq premium darajadagi loyihalarni muvaffaqiyatli yakunlaganman.</p>
+                    <p>Mening asosiy maqsadim — foydalanuvchilar uchun chiroyli, qulay va eng muhimi, ishonchli raqamli yechimlarni zamonaviy texnologiyalar yordamida yaratishdir.</p>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <span class="skill-name">Frontend (React, Next.js)</span>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 95%;"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Backend (Node.js, Express)</span>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 85%;"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Database (PostgreSQL, MongoDB)</span>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 80%;"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .about-hero {
+            height: 40vh;
+            background: linear-gradient(135deg, rgba(24, 23, 21, 0.9) 0%, rgba(197, 160, 89, 0.2) 100%), url('./images/hero_bg.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .about-hero-content h1 {
+            font-size: 50px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .about-details {
+            max-width: 1000px;
+            margin: -50px auto 100px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+        .about-card {
+            background: #1e1d1a;
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 50px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+        .dev-header {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .dev-img {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            color: #181715;
+        }
+        .dev-title h2 {
+            font-size: 32px;
+            color: #fff;
+        }
+        .dev-title span {
+            color: var(--primary);
+            font-size: 16px;
+        }
+        .dev-bio p {
+            color: var(--text-muted);
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .skills-grid {
+            margin-top: 40px;
+            display: grid;
+            gap: 20px;
+        }
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .skill-name {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .skill-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .skill-fill {
+            height: 100%;
+            background: var(--primary);
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.4);
+        }
+    </style>
 
 </body>
 </html>

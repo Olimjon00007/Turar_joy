@@ -10,15 +10,46 @@
 </head>
 <body>
 
+    <div id="premiumModal" class="modal-overlay" style="display:flex;">
+        <div class="premium-modal">
+            <div class="modal-icon">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h2>Ruxsat yo'q</h2>
+            <p>Siz ushbu sahifaga kirish huquqiga ega emassiz. Iltimos, admin sifatida login qiling.</p>
+            <div class="modal-btns">
+                <button class="btn btn-secondary" onclick="window.location.href='index.html'">Bosh sahifaga</button>
+                <button class="btn" onclick="window.location.href='/admin/login.html?redirect=/yuklash.html'">Login</button>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+    <script>
+        // Protect page on load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!protectPage(['owner', 'admin'])) {
+                // Modal is shown by protectPage
+            } else {
+                document.getElementById('premiumModal').style.display = 'none';
+            }
+        });
+    </script>
+
     <header>
-        <a href="index.html" class="logo">EleganceEstate</a>
+        <div class="header-left">
+            <a href="javascript:void(0)" onclick="handleAdminClick()" class="icon-btn" id="pencilBtn"><i class="fas fa-pencil-alt"></i></a>
+            <a href="index.html" class="logo">EleganceEstate</a>
+        </div>
         <nav class="nav-links">
             <a href="index.html">Bosh sahifa</a>
             <a href="sotib-olish.html">Sotib olish</a>
             <a href="ijaraga-olish.html">Ijaraga olish</a>
             <a href="biz-haqimizda.html">Biz haqimizda</a>
             <a href="aloqa.html">Aloqa</a>
-            <a href="yuklash.html" class="nav-btn"><i class="fas fa-plus"></i> E'lon berish</a>
+            <div class="header-right">
+                <a href="javascript:void(0)" onclick="handleUploadClick()" class="nav-btn"><i class="fas fa-plus"></i> E'lon berish</a>
+                <a href="javascript:void(0)" onclick="handleAdminClick()" class="icon-btn" id="profileBtn"><i class="fas fa-user-circle"></i></a>
+            </div>
         </nav>
     </header>
 

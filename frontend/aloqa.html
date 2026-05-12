@@ -10,21 +10,143 @@
 <body>
 
     <header>
-        <a href="index.html" class="logo">EleganceEstate</a>
+        <div class="header-left">
+            <a href="javascript:void(0)" onclick="handleAdminClick()" class="icon-btn" id="pencilBtn"><i class="fas fa-pencil-alt"></i></a>
+            <a href="index.html" class="logo">EleganceEstate</a>
+        </div>
         <nav class="nav-links">
             <a href="index.html">Bosh sahifa</a>
             <a href="sotib-olish.html">Sotib olish</a>
             <a href="ijaraga-olish.html">Ijaraga olish</a>
             <a href="biz-haqimizda.html">Biz haqimizda</a>
             <a href="aloqa.html">Aloqa</a>
-            <a href="yuklash.html" class="nav-btn"><i class="fas fa-plus"></i> E'lon berish</a>
+            <div class="header-right">
+                <a href="yuklash.html" class="nav-btn"><i class="fas fa-plus"></i> E'lon berish</a>
+                <a href="javascript:void(0)" onclick="handleAdminClick()" class="icon-btn" id="profileBtn"><i class="fas fa-user-circle"></i></a>
+            </div>
         </nav>
     </header>
 
-    <section class="static-section">
-        <h1>Aloqa</h1>
-        <p>Biz bilan bog'lanish uchun telefon raqamlar va manzilimiz.</p>
+    <script>
+        function handleAdminClick() {
+            if(localStorage.getItem('isLoggedIn') === 'true') {
+                window.location.href = '../admin/dashboard.html';
+            } else {
+                window.location.href = '../admin/login.html';
+            }
+        }
+    </script>
+
+    <section class="contact-hero">
+        <div class="contact-hero-content">
+            <h1>Biz bilan bog'laning</h1>
+            <p>Savollaringiz bormi? Biz sizga yordam berishdan mamnunmiz.</p>
+        </div>
     </section>
+
+    <section class="contact-grid">
+        <!-- Telegram Card -->
+        <a href="https://t.me/Olimjon00007" class="contact-card" target="_blank">
+            <div class="contact-icon"><i class="fab fa-telegram-plane"></i></div>
+            <h3>Telegram</h3>
+            <p>@Olimjon00007</p>
+            <span>Yozish uchun bosing</span>
+        </a>
+
+        <!-- Phone Card -->
+        <a href="tel:+998940397675" class="contact-card">
+            <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+            <h3>Telefon</h3>
+            <p>+998 94 039 76 75</p>
+            <span>Qo'ng'iroq qilish uchun bosing</span>
+        </a>
+
+        <!-- Website Card -->
+        <a href="https://olimjon.vercel.app" class="contact-card" target="_blank">
+            <div class="contact-icon"><i class="fas fa-globe"></i></div>
+            <h3>Veb-sayt</h3>
+            <p>olimjon.vercel.app</p>
+            <span>Portfolio bilan tanishing</span>
+        </a>
+
+        <!-- Email Card -->
+        <a href="mailto:tuxtasinov.olimjon@ug.shardauniversity.uz" class="contact-card">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <h3>Email</h3>
+            <p>tuxtasinov.olimjon@...</p>
+            <span>Email yuborish uchun bosing</span>
+        </a>
+    </section>
+
+    <style>
+        .contact-hero {
+            height: 40vh;
+            background: linear-gradient(135deg, rgba(24, 23, 21, 0.9) 0%, rgba(197, 160, 89, 0.2) 100%), url('./images/hero_bg.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .contact-hero-content h1 {
+            font-size: 50px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .contact-grid {
+            max-width: 1200px;
+            margin: -60px auto 100px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            position: relative;
+            z-index: 10;
+        }
+        .contact-card {
+            background: #1e1d1a;
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .contact-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--primary);
+            box-shadow: 0 30px 60px rgba(197, 160, 89, 0.15);
+        }
+        .contact-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .contact-card h3 {
+            color: #fff;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .contact-card p {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .contact-card span {
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .contact-card:hover span {
+            opacity: 1;
+        }
+    </style>
 
 </body>
 </html>

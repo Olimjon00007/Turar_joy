@@ -9,16 +9,32 @@
 <body>
 
     <header>
-        <a href="index.html" class="logo">EleganceEstate</a>
+        <div class="header-left">
+            <a href="javascript:void(0)" onclick="handleAdminClick()" class="icon-btn" id="pencilBtn"><i class="fas fa-pencil-alt"></i></a>
+            <a href="index.html" class="logo">EleganceEstate</a>
+        </div>
         <nav class="nav-links">
             <a href="index.html">Bosh sahifa</a>
             <a href="sotib-olish.html">Sotib olish</a>
             <a href="ijaraga-olish.html">Ijaraga olish</a>
             <a href="biz-haqimizda.html">Biz haqimizda</a>
             <a href="aloqa.html">Aloqa</a>
-            <a href="yuklash.html" class="nav-btn"><i class="fas fa-plus"></i> E'lon berish</a>
+            <div class="header-right">
+                <a href="yuklash.html" class="nav-btn"><i class="fas fa-plus"></i> E'lon berish</a>
+                <a href="javascript:void(0)" onclick="handleAdminClick()" class="icon-btn" id="profileBtn"><i class="fas fa-user-circle"></i></a>
+            </div>
         </nav>
     </header>
+
+    <script>
+        function handleAdminClick() {
+            if(localStorage.getItem('isLoggedIn') === 'true') {
+                window.location.href = '../admin/dashboard.html';
+            } else {
+                window.location.href = '../admin/login.html';
+            }
+        }
+    </script>
 
     <section id="listings" class="listings-section">
         <div class="section-header">

@@ -9,19 +9,51 @@
 <body>
 
     <header>
-        <a href="index.html" class="logo">EleganceEstate</a>
+        <div class="header-left">
+            <a href="javascript:void(0)" onclick="handleAdminClick()" class="icon-btn" id="pencilBtn"><i class="fas fa-pencil-alt"></i></a>
+            <a href="index.html" class="logo">EleganceEstate</a>
+        </div>
         <nav class="nav-links">
             <a href="index.html">Bosh sahifa</a>
             <a href="sotib-olish.html">Sotib olish</a>
-            <a href="ijaraga-olish.html" class="active">Ijaraga olish</a>
+            <a href="ijaraga-olish.html">Ijaraga olish</a>
             <a href="biz-haqimizda.html">Biz haqimizda</a>
             <a href="aloqa.html">Aloqa</a>
-            <a href="yuklash.html" class="nav-btn"><i class="fas fa-plus"></i> E'lon berish</a>
+            <div class="header-right">
+                <a href="javascript:void(0)" onclick="handleUploadClick()" class="nav-btn"><i class="fas fa-plus"></i> E'lon berish</a>
+                <a href="javascript:void(0)" onclick="handleAdminClick()" class="icon-btn" id="profileBtn"><i class="fas fa-user-circle"></i></a>
+            </div>
         </nav>
     </header>
 
-    <section class="listings-section">
+    <script src="app.js"></script>
 
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-bar">
+            <div class="filter-group">
+                <label>Viloyat</label>
+                <select id="filterRegion" class="filter-input">
+                    <option value="">Hammasi</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Tuman</label>
+                <select id="filterDistrict" class="filter-input" disabled>
+                    <option value="">Avval viloyatni tanlang</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Maksimal narx ($)</label>
+                <input type="number" id="filterPrice" class="filter-input" placeholder="Masalan: 500">
+            </div>
+            <button class="btn filter-btn" id="applyFilterBtn">
+                <i class="fas fa-search"></i> Qidirish
+            </button>
+        </div>
+    </section>
+
+    <section class="listings-section">
         <div class="grid" id="propertiesGrid">
             <!-- Dynamic content will load here -->
         </div>
